@@ -5,7 +5,12 @@
 {% endblock %}
 
 {% block body %}
-        {% for line in content %}
-            {{ line | safe }}
-        {% endfor %}
+    {% for line in content %}
+        {{ line | safe }}
+    {% endfor %}
+
+    <form action="{% url 'app_wiki_entry_edit' page_title %}" method="get">
+        <input type="submit" value="Edit entry">
+    </form>
+
 {% endblock %}

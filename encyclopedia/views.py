@@ -30,8 +30,20 @@ def entry(request, page_title: str):
         return render(request, "encyclopedia/404.html")
 
 
-def entry_edit(request):
-    pass
+def entry_edit(request, page_title):
+    if request.method == "POST":
+
+    else:
+        entry = open(f"entries/{page_title}.md", 'r', encoding='utf-8')
+        form = PageForm(initial={
+            'title': page_title,
+            'content': entry.read()
+        })
+
+        return render(request, 'encyclopedia/edit_entry.html', {
+            "page_title": page_title.title(),
+            "form": form
+        })
 
 
 def search(request):
