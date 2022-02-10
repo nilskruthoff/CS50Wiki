@@ -32,7 +32,12 @@ def entry(request, page_title: str):
 
 def entry_edit(request, page_title):
     if request.method == "POST":
+        form = PageForm(request.POST)
+        if form.is_valid():
+            with open(f"entries/{page_title}.md", 'w', encoding='utf-8') as file:
+                file.write(form.cleaned_data['content'])
 
+        return redirect('app_wiki_entry', page_title=page_title)
     else:
         entry = open(f"entries/{page_title}.md", 'r', encoding='utf-8')
         form = PageForm(initial={
