@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse
+import random as rnd
+
+import markdown
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from markdown2 import Markdown
+import markdown
 
 from . import util
 from .Forms.PageForm import PageForm
@@ -18,13 +21,11 @@ def index(request):
 def entry(request, page_title: str):
     try:
         with open(f"entries/{page_title}.md", 'r', encoding='utf-8') as file:
-
-            markdowner = Markdown()
-            markdowned_content = [markdowner.convert(file.read())]
+            html = markdown.markdown(''.join(file.readlines()))
 
         return render(request, "encyclopedia/entry.html", {
             "page_title": page_title.capitalize(),
-            "content": markdowned_content
+            "content": html
         })
     except IOError:
         return render(request, "encyclopedia/404.html")
@@ -75,7 +76,9 @@ def search(request):
 
 
 def random(request):
-    pass
+    entries = util.list_entries()
+    r = rnd.randint(0, len(entries) - 1)
+    return redirect('app_wiki_entry', page_title=entries[r])
 
 
 def create(request):
@@ -96,9 +99,3 @@ def create(request):
         return render(request, "encyclopedia/create_entry.html", {
             "form": PageForm()
         })
-
-
-def edit(request):
-    pass
-
-
