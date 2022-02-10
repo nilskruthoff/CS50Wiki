@@ -4,8 +4,7 @@ from django.http import HttpResponse
 from markdown2 import Markdown
 
 from . import util
-from . import Forms
-from .Forms import SearchForm
+from .Forms.PageForm import PageForm
 
 
 def index(request):
@@ -18,12 +17,10 @@ def index(request):
 
 def entry(request, page_title: str):
     try:
-        file = open(f"entries/{page_title}.md", 'r')
+        with open(f"entries/{page_title}.md", 'r', encoding='utf-8') as file:
 
-        markdowner = Markdown()
-        markdowned_content = []
-        for line in file.readlines():
-            markdowned_content.append(markdowner.convert(line))
+            markdowner = Markdown()
+            markdowned_content = [markdowner.convert(file.read())]
 
         return render(request, "encyclopedia/entry.html", {
             "page_title": page_title.capitalize(),
@@ -65,7 +62,23 @@ def random(request):
 
 
 def create(request):
-    pass
+    if request.method == "POST":
+        page_form = PageForm(request.POST)
+        if page_form.is_valid():
+            title = page_form.cleaned_data['title']
+            content = page_form.cleaned_data['content']
+
+            if title.lower() not in util.list_entries_lowercase(util.list_entries()):
+                with open(f"entries/{title}.md", 'w', encoding='utf-8') as new_file:
+                    new_file.write(content)
+
+                return redirect('app_wiki_entry', page_title=title)
+            else:
+                return HttpResponse(f'Page already exists.')
+    else:
+        return render(request, "encyclopedia/create_entry.html", {
+            "form": PageForm()
+        })
 
 
 def edit(request):
