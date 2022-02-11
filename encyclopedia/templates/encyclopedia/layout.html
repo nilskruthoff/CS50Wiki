@@ -11,10 +11,10 @@
     <body>
         <div class="row">
             <div class="sidebar col-lg-2 col-md-3">
-                <h2>Wiki</h2>
+                <h2><a href="{% url 'index' %}" class="home">Wiki</a></h2>
                 <form action="{% url 'app_wiki_search' %}" method="post">
                     {% csrf_token %}
-                    <input id="search" class="search" type="text" name="q" placeholder="Search Encyclopedia">
+                    <input id="search" class="search searchbar" type="text" name="q" placeholder="Search Encyclopedia">
                 </form>
                 <div>
                     <a href="{% url 'index' %}">Home</a>
@@ -23,7 +23,7 @@
                     <a href="{% url 'app_wiki_create' %}">Create New Page</a>
                 </div>
                 <div>
-                    Random Page
+                    <a href="{% url 'app_wiki_random' %}">Random Page</a>
                 </div>
                 {% block nav %}
                 {% endblock %}

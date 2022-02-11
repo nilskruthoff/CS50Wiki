@@ -5,10 +5,19 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Create a new wiki entry</h1>
-    <form action="{% url 'app_wiki_create' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
+    <div class="page-margin">
+        <h1 class="heading">Create a new wiki entry</h1>
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                This page does already exist.
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <form action="{% url 'app_wiki_create' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_table }}
+                <input type="submit" value="Submit" class="btn btn-primary my-3">
+            </form>
+        </div>
+    </div>
 {% endblock %}

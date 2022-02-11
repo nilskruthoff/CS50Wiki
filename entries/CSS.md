@@ -1,5 +1,9 @@
 # CSS
 
-> CSS stands for **Cascading Stylesheet**
 
-CSS is a language that can be used to add style to an [HTML](/wiki/HTML) page.
+
+CSS stands for **Cascading Stylesheet**
+
+
+
+CSS is a language that can be used to add style to an [HTML](/wiki/entry/HTML) page.

@@ -5,12 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    {% for line in content %}
-        {{ line | safe }}
-    {% endfor %}
+    <div class="page-margin">
+        {{ content | safe }}
 
-    <form action="{% url 'app_wiki_entry_edit' page_title %}" method="get">
-        <input type="submit" value="Edit entry">
-    </form>
-
+        <form action="{% url 'app_wiki_entry_edit' page_title %}" method="get">
+            <input type="submit" value="Edit" class="btn btn-link my-3 outline">
+        </form>
+    </div>
 {% endblock %}
