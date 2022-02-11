@@ -5,13 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Search Result</h1>
-    <p>Your search with the search keyword "{{ query }}" returned the following results:</p>
+    <div class="page-margin">
+        <h1 class="heading">Search Result</h1>
+        <p class="text-muted">Your search with the search keyword "{{ query }}" returned the following results:</p>
 
-    <ul>
-     {% for key, value in search_result.items %}
-         <li><a href="{{ value }}">{{ key }}</a></li>
-    {% endfor %}
-    </ul>
-
+        <div class="list-group list-group-flush">
+            <ul>
+             {% for key, value in search_result.items %}
+                 <li><a href="{{ value }}" class="list-group-item">{{ key }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}

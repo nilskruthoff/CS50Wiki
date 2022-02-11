@@ -5,12 +5,14 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Edit {{ page_title }}</h1>
-    <div class="form-group">
-        <form action="{% url 'app_wiki_entry_edit' page_title %}" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Save changes">
-        </form>
+    <div class="page-margin">
+        <h1 class="heading">Edit {{ page_title }}</h1>
+        <div class="form-group">
+            <form action="{% url 'app_wiki_entry_edit' page_title %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Save changes" class="btn btn-primary my-3">
+            </form>
+        </div>
     </div>
 {% endblock %}
